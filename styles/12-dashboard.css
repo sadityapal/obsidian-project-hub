@@ -1,0 +1,318 @@
+/* Project Hub — dashboard widgets (ph-dashboard code block) and the My work
+ * sidebar view. */
+
+.ph-widget {
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius);
+	background: var(--background-primary);
+	padding: 10px 12px;
+}
+.ph-widget-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+.ph-widget-icon {
+	display: inline-flex;
+	color: var(--text-muted);
+}
+.ph-widget-icon svg {
+	width: 14px;
+	height: 14px;
+}
+.ph-widget-title {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.ph-widget-count {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-faint);
+	font-variant-numeric: tabular-nums;
+}
+.ph-widget-action {
+	margin-left: auto;
+}
+.ph-widget-body {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+.ph-widget-body .ph-btn {
+	align-self: flex-start;
+}
+
+.ph-widget-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 3px 5px;
+	border-radius: var(--ph-radius-sm);
+	font-size: var(--font-ui-small);
+}
+.ph-widget-row:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-widget-row .ph-widget-done {
+	opacity: 0;
+	color: var(--text-faint);
+	cursor: pointer;
+	flex: none;
+	display: inline-flex;
+}
+.ph-widget-row:hover .ph-widget-done {
+	opacity: 1;
+}
+.ph-widget-done:hover {
+	color: var(--ph-good);
+}
+.ph-widget-done svg {
+	width: 14px;
+	height: 14px;
+}
+.ph-widget-row .ph-link {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ph-widget-crumb {
+	flex: none;
+	font-size: var(--font-ui-smaller);
+}
+
+.ph-widget-group summary {
+	cursor: pointer;
+	padding: 2px 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-medium);
+	list-style: none;
+}
+.ph-widget-group summary::-webkit-details-marker {
+	display: none;
+}
+.ph-widget-group summary::before {
+	content: "▸";
+	display: inline-block;
+	width: 14px;
+	color: var(--text-faint);
+}
+.ph-widget-group[open] summary::before {
+	content: "▾";
+}
+.ph-widget-group .ph-widget-row {
+	margin-left: 6px;
+}
+
+.ph-widget-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+	gap: 8px;
+}
+.ph-widget-card {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius);
+	cursor: pointer;
+}
+.ph-widget-card:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-widget-card-title {
+	font-weight: var(--font-semibold);
+}
+.ph-widget-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+.ph-widget-card-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 10px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+.ph-widget-card-stats .is-critical {
+	color: var(--text-error);
+}
+.ph-widget-actions {
+	display: flex;
+	gap: 6px;
+	margin-top: 2px;
+}
+
+/* ---------- stacked status distribution + legend ---------- */
+.ph-dist {
+	display: flex;
+	height: 8px;
+	border-radius: 999px;
+	overflow: hidden;
+	background: var(--background-modifier-border);
+}
+.ph-dist-seg {
+	--ph-c: var(--ph-gray);
+	height: 100%;
+	background: var(--ph-c);
+}
+.ph-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 10px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+.ph-legend-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+.ph-legend-dot {
+	--ph-c: var(--ph-gray);
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--ph-c);
+}
+
+.ph-activity-row .ph-id {
+	cursor: pointer;
+}
+
+/* ---------------------------------------------------------------- My work sidebar */
+
+.ph-mywork {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.ph-mywork-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 10px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.ph-mywork-title {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-semibold);
+	color: var(--text-normal);
+}
+.ph-mywork-sync {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-faint);
+}
+.ph-mywork-sync svg {
+	width: 12px;
+	height: 12px;
+}
+.ph-mywork-sync.is-critical {
+	color: var(--text-error);
+}
+.ph-mywork-sync.is-busy svg {
+	animation: ph-spin 1.4s linear infinite;
+}
+@keyframes ph-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+.ph-mywork-actions {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+.ph-mywork-body {
+	flex: 1;
+	overflow-y: auto;
+	padding: 6px;
+}
+.ph-mywork-section {
+	margin-bottom: 10px;
+	border-radius: var(--ph-radius-sm);
+}
+.ph-mywork-section.is-drop {
+	outline: 2px dashed var(--interactive-accent);
+	outline-offset: 2px;
+}
+.ph-mywork-section-title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 5px;
+	cursor: pointer;
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-medium);
+	color: var(--text-muted);
+}
+.ph-mywork-section-title:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-mywork-section-title svg {
+	width: 12px;
+	height: 12px;
+}
+.ph-mywork-chevron {
+	display: inline-flex;
+	color: var(--text-faint);
+}
+.ph-mywork-count {
+	color: var(--text-faint);
+	font-variant-numeric: tabular-nums;
+}
+.ph-mywork-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.ph-mywork-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 5px;
+	border-radius: var(--ph-radius-sm);
+	font-size: var(--font-ui-smaller);
+	cursor: pointer;
+}
+.ph-mywork-row:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-mywork-row .ph-link {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ph-mywork-done {
+	opacity: 0;
+	color: var(--text-faint);
+	display: inline-flex;
+}
+.ph-mywork-row:hover .ph-mywork-done {
+	opacity: 1;
+}
+.ph-mywork-done:hover {
+	color: var(--ph-good);
+}
+.ph-mywork-done svg {
+	width: 13px;
+	height: 13px;
+}
+.ph-mywork .ph-empty {
+	padding: 8px;
+	text-align: left;
+}

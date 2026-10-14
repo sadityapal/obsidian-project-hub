@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "type": "group",
+      "ctime": 1760000000000,
+      "title": "Project Hub",
+      "items": [
+        {
+          "type": "file",
+          "ctime": 1760000000000,
+          "path": "Home.md"
+        },
+        {
+          "type": "file",
+          "ctime": 1760000000000,
+          "path": "Bases/Work Items.base",
+          "subpath": "Board"
+        },
+        {
+          "type": "file",
+          "ctime": 1760000000000,
+          "path": "Bases/Work Items.base",
+          "subpath": "Backlog"
+        },
+        {
+          "type": "file",
+          "ctime": 1760000000000,
+          "path": "Bases/Work Items.base",
+          "subpath": "Timeline"
+        },
+        {
+          "type": "file",
+          "ctime": 1760000000000,
+          "path": "Guide.md"
+        }
+      ]
+    }
+  ]
+}

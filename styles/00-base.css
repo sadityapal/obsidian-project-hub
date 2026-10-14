@@ -1,0 +1,282 @@
+/* Project Hub — shared tokens and primitives.
+ * Categorical colours come from a CVD-validated palette (light and dark steps
+ * validated separately). Colour never carries meaning alone: every coloured
+ * mark sits next to a text label or icon. Text always uses theme ink, never
+ * the series colour. */
+
+body {
+	--ph-blue: #2a78d6;
+	--ph-orange: #eb6834;
+	--ph-aqua: #1baf7a;
+	--ph-yellow: #eda100;
+	--ph-magenta: #e87ba4;
+	--ph-green: #008300;
+	--ph-violet: #4a3aa7;
+	--ph-red: #e34948;
+	--ph-gray: #898781;
+
+	/* status (reserved; always paired with icon + label) */
+	--ph-good: #0ca30c;
+	--ph-warning: #fab219;
+	--ph-serious: #ec835a;
+	--ph-critical: #d03b3b;
+
+	--ph-chart-surface: var(--background-primary);
+	--ph-grid: #e1e0d9;
+	--ph-axis: #c3c2b7;
+	--ph-ink-muted: #898781;
+
+	--ph-radius: 6px;
+	--ph-radius-sm: 4px;
+	--ph-gap: 8px;
+}
+
+body.theme-dark {
+	--ph-blue: #3987e5;
+	--ph-orange: #d95926;
+	--ph-aqua: #199e70;
+	--ph-yellow: #c98500;
+	--ph-magenta: #d55181;
+	--ph-green: #008300;
+	--ph-violet: #9085e9;
+	--ph-red: #e66767;
+	--ph-gray: #898781;
+
+	--ph-grid: #2c2c2a;
+	--ph-axis: #383835;
+}
+
+[data-ph-color="blue"] { --ph-c: var(--ph-blue); }
+[data-ph-color="orange"] { --ph-c: var(--ph-orange); }
+[data-ph-color="aqua"] { --ph-c: var(--ph-aqua); }
+[data-ph-color="yellow"] { --ph-c: var(--ph-yellow); }
+[data-ph-color="magenta"] { --ph-c: var(--ph-magenta); }
+[data-ph-color="green"] { --ph-c: var(--ph-green); }
+[data-ph-color="violet"] { --ph-c: var(--ph-violet); }
+[data-ph-color="red"] { --ph-c: var(--ph-red); }
+[data-ph-color="gray"] { --ph-c: var(--ph-gray); }
+
+/* ---------- status pill: tinted fill + dot in colour, label in ink ---------- */
+.ph-status {
+	--ph-c: var(--ph-gray);
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 1px 8px 1px 6px;
+	border-radius: 999px;
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-medium);
+	line-height: 1.6;
+	color: var(--text-normal);
+	background: color-mix(in srgb, var(--ph-c) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--ph-c) 35%, transparent);
+	white-space: nowrap;
+	user-select: none;
+}
+.ph-status::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--ph-c);
+	flex: none;
+}
+.ph-status.is-clickable { cursor: pointer; }
+.ph-status.is-clickable:hover { background: color-mix(in srgb, var(--ph-c) 24%, transparent); }
+
+/* ---------- priority: icon + label, status colours ---------- */
+.ph-priority {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+.ph-priority svg { width: 14px; height: 14px; }
+.ph-priority[data-priority="1"] svg { color: var(--ph-critical); }
+.ph-priority[data-priority="2"] svg { color: var(--ph-serious); }
+.ph-priority[data-priority="3"] svg { color: var(--ph-warning); }
+.ph-priority[data-priority="4"] svg { color: var(--ph-gray); }
+
+/* ---------- type icon ---------- */
+.ph-type {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	white-space: nowrap;
+}
+.ph-type svg { width: 14px; height: 14px; }
+.ph-type[data-type="epic"] svg { color: var(--ph-orange); }
+.ph-type[data-type="feature"] svg { color: var(--ph-violet); }
+.ph-type[data-type="story"] svg { color: var(--ph-blue); }
+.ph-type[data-type="task"] svg { color: var(--ph-yellow); }
+.ph-type[data-type="bug"] svg { color: var(--ph-red); }
+.ph-type[data-type="issue"] svg { color: var(--ph-magenta); }
+.ph-type[data-type="risk"] svg { color: var(--ph-gray); }
+
+/* ---------- avatar (initials) ---------- */
+.ph-avatar {
+	--ph-c: var(--ph-gray);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	font-size: 10px;
+	font-weight: var(--font-bold);
+	letter-spacing: 0.02em;
+	color: #fff;
+	background: var(--ph-c);
+	flex: none;
+	user-select: none;
+}
+.ph-avatar.is-empty {
+	background: transparent;
+	border: 1px dashed var(--text-faint);
+	color: var(--text-faint);
+}
+.ph-person {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	white-space: nowrap;
+}
+
+/* ---------- progress bar ---------- */
+.ph-progress {
+	--ph-c: var(--ph-aqua);
+	position: relative;
+	height: 6px;
+	border-radius: 999px;
+	background: var(--background-modifier-border);
+	overflow: hidden;
+	min-width: 60px;
+}
+.ph-progress > .ph-progress-fill {
+	position: absolute;
+	inset: 0 auto 0 0;
+	border-radius: 999px;
+	background: var(--ph-c);
+	transition: width 200ms ease;
+}
+.ph-progress-label {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* ---------- chips / labels ---------- */
+.ph-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 0 6px;
+	border-radius: var(--ph-radius-sm);
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	background: var(--background-modifier-hover);
+	white-space: nowrap;
+}
+.ph-chip svg { width: 12px; height: 12px; }
+.ph-chip.is-warning { color: var(--text-normal); background: color-mix(in srgb, var(--ph-warning) 18%, transparent); }
+.ph-chip.is-critical { color: var(--text-normal); background: color-mix(in srgb, var(--ph-critical) 16%, transparent); }
+.ph-chip.is-good { color: var(--text-normal); background: color-mix(in srgb, var(--ph-good) 16%, transparent); }
+.ph-chip.is-clickable { cursor: pointer; }
+.ph-chip.is-clickable:hover { background: var(--background-modifier-active-hover); }
+
+.ph-id {
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.ph-muted { color: var(--text-muted); }
+.ph-faint { color: var(--text-faint); }
+.ph-empty {
+	padding: 16px;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+.ph-error {
+	padding: 8px 12px;
+	border-radius: var(--ph-radius);
+	color: var(--text-error);
+	background: color-mix(in srgb, var(--ph-critical) 10%, transparent);
+	font-size: var(--font-ui-small);
+}
+
+/* ---------- buttons ---------- */
+.ph-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--font-ui-small);
+	cursor: pointer;
+}
+.ph-btn svg { width: 14px; height: 14px; }
+.ph-icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	border-radius: var(--ph-radius-sm);
+	color: var(--text-muted);
+	cursor: pointer;
+	background: transparent;
+	box-shadow: none;
+	border: none;
+}
+.ph-icon-btn:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.ph-icon-btn svg { width: 16px; height: 16px; }
+
+/* ---------- shared panel ---------- */
+.ph-panel {
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius);
+	background: var(--background-primary);
+	padding: 12px 14px;
+}
+.ph-panel-title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-bottom: 8px;
+}
+.ph-panel-title svg { width: 14px; height: 14px; }
+
+/* ---------- tooltip used by charts and timeline ---------- */
+.ph-tooltip {
+	position: fixed;
+	z-index: var(--layer-tooltip);
+	pointer-events: none;
+	padding: 6px 10px;
+	border-radius: var(--ph-radius);
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	box-shadow: var(--shadow-s);
+	font-size: var(--font-ui-smaller);
+	color: var(--text-normal);
+	max-width: 320px;
+	white-space: normal;
+}
+.ph-tooltip .ph-tooltip-title { font-weight: var(--font-semibold); margin-bottom: 2px; }
+.ph-tooltip .ph-tooltip-row { display: flex; justify-content: space-between; gap: 12px; }
+.ph-tooltip .ph-tooltip-row > span:last-child { font-variant-numeric: tabular-nums; }
+
+/* Hide the raw code fence chrome around our blocks in reading/live preview. */
+.block-language-ph-header,
+.block-language-ph-dashboard,
+.block-language-ph-chart { overflow: visible; }

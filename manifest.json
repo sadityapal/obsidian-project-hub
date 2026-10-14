@@ -1,0 +1,9 @@
+{
+  "id": "project-hub",
+  "name": "Project Hub",
+  "version": "1.0.0",
+  "minAppVersion": "1.11.4",
+  "author": "Shiladitya Pal",
+  "isDesktopOnly": true,
+  "description": "Project management for Obsidian: work items, sprints, boards, timeline, charts and rollups — all local."
+}

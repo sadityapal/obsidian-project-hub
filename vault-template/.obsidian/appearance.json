@@ -1,0 +1,7 @@
+{
+  "theme": "system",
+  "cssTheme": "Minimal",
+  "enabledCssSnippets": [
+    "project-hub-tweaks"
+  ]
+}

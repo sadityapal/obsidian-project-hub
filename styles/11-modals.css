@@ -1,0 +1,254 @@
+/* Project Hub — modals: quick-create for work items, project/sprint/meeting
+ * forms, the confirm dialog and the shared date/number/text popovers. */
+
+.ph-btn {
+	padding: 4px 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius-sm);
+	background: var(--background-primary);
+	color: var(--text-normal);
+}
+.ph-btn:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-btn.mod-cta {
+	background: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+}
+.ph-btn.mod-cta:hover {
+	background: var(--interactive-accent-hover);
+}
+.ph-btn.mod-warning {
+	color: var(--text-error);
+}
+.ph-btn:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+/* ---------------------------------------------------------------- new work item */
+
+.ph-nim-modal {
+	width: min(760px, 94vw);
+}
+.ph-nim {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.ph-nim-title {
+	width: 100%;
+	padding: 8px 10px;
+	font-size: var(--font-ui-large);
+	color: var(--text-normal);
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius);
+}
+.ph-nim-title:focus {
+	border-color: var(--interactive-accent);
+}
+.ph-nim-tokens {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	min-height: 22px;
+	font-size: var(--font-ui-smaller);
+}
+.ph-nim-desc {
+	width: 100%;
+	min-height: 60px;
+	padding: 8px 10px;
+	resize: vertical;
+	font-size: var(--font-ui-small);
+	color: var(--text-normal);
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius);
+}
+.ph-nim-desc:focus {
+	border-color: var(--interactive-accent);
+}
+.ph-nim-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+.ph-nim-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 100%;
+	padding: 3px 9px;
+	border-radius: 999px;
+	border: 1px solid var(--background-modifier-border);
+	background: var(--background-secondary);
+	cursor: pointer;
+	font-size: var(--font-ui-smaller);
+}
+.ph-nim-pill:hover {
+	background: var(--background-modifier-hover);
+	border-color: var(--background-modifier-active-hover);
+}
+.ph-nim-pill-label {
+	color: var(--text-faint);
+}
+.ph-nim-pill-value {
+	color: var(--text-normal);
+	font-weight: var(--font-medium);
+	max-width: 170px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.ph-nim-pill-icon {
+	display: inline-flex;
+	color: var(--text-muted);
+}
+.ph-nim-pill-icon svg {
+	width: 12px;
+	height: 12px;
+}
+.ph-nim-pill-dot {
+	--ph-c: var(--ph-gray);
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--ph-c);
+	flex: none;
+}
+.ph-nim-ado {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+.ph-nim-ado-label {
+	color: var(--text-normal);
+	font-weight: var(--font-medium);
+}
+.ph-nim-ado-hint {
+	color: var(--text-faint);
+}
+.ph-nim-error {
+	min-height: 1em;
+	color: var(--text-error);
+	font-size: var(--font-ui-smaller);
+}
+.ph-nim-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.ph-nim-hints {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+.ph-nim-hints kbd {
+	padding: 1px 5px;
+	border-radius: var(--ph-radius-sm);
+	border: 1px solid var(--background-modifier-border);
+	background: var(--background-secondary);
+	font-family: var(--font-monospace);
+	font-size: var(--font-ui-smaller);
+}
+.ph-nim-actions {
+	display: flex;
+	gap: 6px;
+}
+
+.ph-notice-created {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.ph-notice-created a {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* ---------------------------------------------------------------- forms & confirm */
+
+.ph-form-modal {
+	width: min(560px, 92vw);
+}
+.ph-form-textarea {
+	width: 100%;
+	resize: vertical;
+	font-size: var(--font-ui-small);
+}
+.ph-form-people {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+	gap: 4px 10px;
+	max-height: 200px;
+	overflow-y: auto;
+}
+.ph-form-person {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: var(--font-ui-small);
+}
+
+.ph-confirm {
+	width: min(460px, 90vw);
+}
+.ph-confirm-msg {
+	margin-bottom: 12px;
+	color: var(--text-muted);
+	white-space: pre-wrap;
+}
+.ph-confirm-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* ---------------------------------------------------------------- popovers */
+
+.ph-pop {
+	z-index: var(--layer-menu);
+	position: fixed;
+	min-width: 220px;
+	padding: 10px;
+	border-radius: var(--ph-radius);
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	box-shadow: var(--shadow-l);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.ph-pop-title {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+.ph-pop-date,
+.ph-pop-number,
+.ph-pop-text {
+	width: 100%;
+	padding: 4px 6px;
+	font-size: var(--font-ui-small);
+	color: var(--text-normal);
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius-sm);
+}
+.ph-pop-date:focus,
+.ph-pop-number:focus,
+.ph-pop-text:focus {
+	border-color: var(--interactive-accent);
+}
+.ph-pop-actions {
+	display: flex;
+	justify-content: flex-end;
+}

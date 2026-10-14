@@ -1,0 +1,506 @@
+/* Timeline (Gantt) Bases view — "ph-timeline".
+   Colour comes from 00-base.css tokens: [data-ph-color] sets --ph-c. */
+
+.ph-timeline {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	font-size: 13px;
+	--ph-tl-row-h: 34px;
+	--ph-tl-left: 260px;
+}
+
+.ph-timeline-embedded {
+	max-height: 60vh;
+}
+
+/* ---------------------------------------------------------------- toolbar */
+
+.ph-tl-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 8px;
+	border-bottom: 1px solid var(--background-modifier-border);
+	flex-wrap: wrap;
+}
+
+.ph-tl-search {
+	flex: 0 1 200px;
+	min-width: 120px;
+	height: 26px;
+	padding: 0 8px;
+}
+
+.ph-tl-scale {
+	height: 26px;
+	font-size: 12px;
+}
+
+.ph-tl-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	height: 26px;
+	padding: 0 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s, 4px);
+	background: var(--background-secondary);
+	color: var(--text-normal);
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.ph-tl-btn:hover {
+	background: var(--background-modifier-hover);
+}
+
+.ph-tl-btn[aria-pressed="true"] {
+	border-color: var(--interactive-accent);
+	color: var(--interactive-accent);
+}
+
+.ph-tl-icon-btn {
+	width: 26px;
+	padding: 0;
+	justify-content: center;
+}
+
+.ph-tl-count {
+	margin-left: auto;
+	font-size: 12px;
+	color: var(--text-muted);
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- body */
+
+.ph-tl-body {
+	flex: 1;
+	display: flex;
+	min-height: 0;
+	position: relative;
+}
+
+.ph-tl-left {
+	flex: 0 0 var(--ph-tl-left);
+	width: var(--ph-tl-left);
+	overflow: hidden;
+	border-right: 1px solid var(--background-modifier-border);
+	position: relative;
+	background: var(--background-primary);
+}
+
+.ph-tl-left-inner {
+	position: absolute;
+	inset: 0 0 auto 0;
+	will-change: transform;
+}
+
+.ph-tl-divider {
+	flex: 0 0 5px;
+	cursor: col-resize;
+	background: transparent;
+	z-index: 6;
+}
+
+.ph-tl-divider:hover {
+	background: var(--interactive-accent);
+}
+
+.ph-tl-chart {
+	flex: 1;
+	overflow: auto;
+	position: relative;
+	min-width: 0;
+}
+
+.ph-tl-content {
+	position: relative;
+}
+
+/* ---------------------------------------------------------------- header + bands */
+
+.ph-tl-header {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	background: var(--background-primary);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.ph-tl-bands {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid var(--background-modifier-border);
+	background: var(--background-secondary);
+}
+
+.ph-tl-band {
+	position: absolute;
+	top: 3px;
+	height: 9px;
+	border-radius: 3px;
+	background: var(--background-modifier-border);
+	border: 1px solid var(--background-modifier-border);
+	overflow: hidden;
+}
+
+.ph-tl-band-current {
+	background: color-mix(in srgb, var(--interactive-accent) 35%, transparent);
+	border-color: var(--interactive-accent);
+}
+
+.ph-tl-band-label {
+	position: absolute;
+	left: 4px;
+	top: -1px;
+	font-size: 9px;
+	line-height: 11px;
+	color: var(--text-muted);
+	white-space: nowrap;
+	pointer-events: none;
+}
+
+.ph-tl-band-current .ph-tl-band-label {
+	color: var(--text-normal);
+}
+
+.ph-tl-band-target {
+	position: absolute;
+	top: 4px;
+	width: 8px;
+	height: 8px;
+	margin-left: -4px;
+	background: var(--text-muted);
+	transform: rotate(45deg);
+}
+
+.ph-tl-axis {
+	position: relative;
+}
+
+.ph-tl-tick {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	border-left: 1px solid var(--background-modifier-border);
+}
+
+.ph-tl-tick-label {
+	position: absolute;
+	left: 4px;
+	top: 3px;
+	font-size: 11px;
+	color: var(--text-muted);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.ph-tl-tick-major {
+	border-left-color: var(--background-modifier-border-hover, var(--background-modifier-border));
+}
+
+.ph-tl-tick-major .ph-tl-tick-label {
+	color: var(--text-normal);
+	font-weight: 500;
+}
+
+.ph-tl-weekend {
+	background: color-mix(in srgb, var(--background-modifier-border) 22%, transparent);
+}
+
+.ph-tl-today-head {
+	position: absolute;
+	top: 2px;
+	transform: translateX(-50%);
+	font-size: 10px;
+	padding: 0 5px;
+	border-radius: 8px;
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	white-space: nowrap;
+	z-index: 2;
+}
+
+/* ---------------------------------------------------------------- grid */
+
+.ph-tl-grid {
+	position: relative;
+}
+
+.ph-tl-gridline {
+	position: absolute;
+	top: 0;
+	width: 1px;
+	background: var(--background-modifier-border);
+	pointer-events: none;
+}
+
+.ph-tl-gridline-week {
+	background: var(--background-modifier-border-hover, var(--background-modifier-border));
+}
+
+.ph-tl-todayline {
+	position: absolute;
+	top: 0;
+	width: 1px;
+	background: var(--interactive-accent);
+	pointer-events: none;
+	z-index: 1;
+}
+
+.ph-tl-deps {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.ph-tl-dep {
+	fill: none;
+	stroke: var(--text-faint);
+	stroke-width: 1.5;
+}
+
+.ph-tl-dep-conflict {
+	stroke: var(--text-error);
+	stroke-dasharray: 4 3;
+}
+
+.ph-tl-dep-dot {
+	fill: var(--text-error);
+}
+
+.ph-tl-empty {
+	position: absolute;
+	left: 50%;
+	top: 40px;
+	transform: translateX(-50%);
+	color: var(--text-muted);
+	font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- rows */
+
+.ph-tl-row {
+	position: absolute;
+	left: 0;
+	height: var(--ph-tl-row-h);
+	border-bottom: 1px solid color-mix(in srgb, var(--background-modifier-border) 45%, transparent);
+}
+
+.ph-tl-row-group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: var(--background-secondary);
+	border-bottom: 1px solid var(--background-modifier-border);
+	cursor: pointer;
+	padding: 0 8px;
+}
+
+.ph-tl-row-dragging {
+	background: color-mix(in srgb, var(--interactive-accent) 8%, transparent);
+}
+
+.ph-tl-group-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--text-faint);
+}
+
+.ph-tl-group-label {
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.ph-tl-group-sub {
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.ph-tl-group-count {
+	margin-left: auto;
+	font-size: 11px;
+	color: var(--text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.ph-tl-lrow {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: var(--ph-tl-row-h);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 0 8px;
+	border-bottom: 1px solid color-mix(in srgb, var(--background-modifier-border) 45%, transparent);
+	background: var(--background-primary);
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ph-tl-lrow-group {
+	font-weight: 600;
+	background: var(--background-secondary);
+}
+
+.ph-tl-caret {
+	display: inline-flex;
+	color: var(--text-muted);
+}
+
+.ph-tl-caret svg {
+	width: 12px;
+	height: 12px;
+}
+
+.ph-tl-type {
+	display: inline-flex;
+	color: var(--text-muted);
+}
+
+.ph-tl-type svg {
+	width: 13px;
+	height: 13px;
+}
+
+.ph-tl-id {
+	font-size: 11px;
+	color: var(--text-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.ph-tl-title {
+	font-size: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.ph-tl-title:hover {
+	color: var(--interactive-accent);
+	text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------- bars */
+
+.ph-tl-bar {
+	position: absolute;
+	top: 8px;
+	height: 18px;
+	border-radius: 4px;
+	background: color-mix(in srgb, var(--ph-c, var(--interactive-accent)) 45%, transparent);
+	border: 1px solid var(--ph-c, var(--interactive-accent));
+	display: flex;
+	align-items: center;
+	min-width: 6px;
+	cursor: grab;
+	overflow: visible;
+	z-index: 2;
+}
+
+.ph-tl-bar:hover {
+	filter: brightness(1.08);
+}
+
+.ph-tl-bar:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+}
+
+.ph-tl-bar-label {
+	position: absolute;
+	left: calc(100% + 6px);
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 12px;
+	color: var(--text-normal);
+	white-space: nowrap;
+	max-width: 260px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	pointer-events: none;
+}
+
+.ph-tl-progress {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	border-radius: 3px 0 0 3px;
+	background: var(--ph-c, var(--interactive-accent));
+	opacity: 0.75;
+	pointer-events: none;
+}
+
+.ph-tl-milestone {
+	width: 14px;
+	height: 14px;
+	top: 10px;
+	border-radius: 2px;
+	transform: rotate(45deg);
+	background: var(--ph-c, var(--interactive-accent));
+}
+
+.ph-tl-done {
+	opacity: 0.55;
+}
+
+.ph-tl-overdue {
+	box-shadow: 0 0 0 2px var(--text-error);
+}
+
+.ph-tl-warn {
+	position: absolute;
+	right: -18px;
+	display: inline-flex;
+	color: var(--text-error);
+}
+
+.ph-tl-warn svg {
+	width: 12px;
+	height: 12px;
+}
+
+.ph-tl-bar .ph-avatar {
+	position: absolute;
+	right: 2px;
+	top: 0;
+	pointer-events: none;
+}
+
+.ph-tl-unsched {
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 2px 8px;
+	font-size: 11px;
+	color: var(--text-muted);
+	border: 1px dashed var(--background-modifier-border);
+	border-radius: 10px;
+	cursor: grab;
+	background: var(--background-primary);
+}
+
+.ph-tl-unsched:hover {
+	color: var(--text-normal);
+	border-color: var(--interactive-accent);
+}
+
+.ph-tl-unsched-icon {
+	display: inline-flex;
+}
+
+.ph-tl-unsched-icon svg {
+	width: 12px;
+	height: 12px;
+}

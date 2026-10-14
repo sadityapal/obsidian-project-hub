@@ -1,0 +1,79 @@
+filters:
+  and:
+    - 'kind == "project"'
+properties:
+  file.name:
+    displayName: Name
+  status:
+    displayName: Status
+  health:
+    displayName: Health
+  owner:
+    displayName: Owner
+  start:
+    displayName: Start
+  target:
+    displayName: Target
+  progress:
+    displayName: Progress
+  items_total:
+    displayName: Items
+  items_done:
+    displayName: Done
+  points_total:
+    displayName: Points
+  points_done:
+    displayName: Points done
+  summary:
+    displayName: Summary
+views:
+  - type: table
+    name: All projects
+    order:
+      - file.name
+      - status
+      - health
+      - owner
+      - start
+      - target
+      - progress
+      - items_done
+      - items_total
+      - points_done
+      - points_total
+    sort:
+      - property: target
+        direction: ASC
+      - property: file.name
+        direction: ASC
+    summaries:
+      points_total: Sum
+      points_done: Sum
+  - type: cards
+    name: Gallery
+    order:
+      - file.name
+      - status
+      - health
+      - summary
+      - progress
+      - target
+  - type: table
+    name: Active
+    filters:
+      and:
+        - 'status == "Active"'
+    order:
+      - file.name
+      - health
+      - owner
+      - start
+      - target
+      - progress
+      - items_done
+      - items_total
+      - points_done
+      - points_total
+    sort:
+      - property: target
+        direction: ASC

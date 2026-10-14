@@ -1,0 +1,209 @@
+/* Project Hub — note header (ph-header code block): breadcrumb, headline
+ * controls, a two-column property grid and actions. Colour never carries
+ * meaning alone: dots/icons always sit next to a text label. */
+
+.ph-header {
+	padding: 2px 0 10px;
+	font-size: var(--font-ui-small);
+}
+
+.ph-crumbs {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 8px;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+.ph-crumb-sep {
+	color: var(--text-faint);
+}
+.ph-crumb-current {
+	color: var(--text-muted);
+	font-weight: var(--font-medium);
+}
+
+.ph-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+.ph-head-title {
+	font-size: var(--font-ui-large);
+	font-weight: var(--font-semibold);
+	color: var(--text-normal);
+}
+.ph-head-sub {
+	color: var(--text-muted);
+}
+
+.ph-ctl {
+	cursor: pointer;
+	border-radius: var(--ph-radius-sm);
+	padding: 1px 4px;
+}
+.ph-ctl:hover {
+	background: var(--background-modifier-hover);
+}
+
+.ph-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	gap: 4px 16px;
+	margin-bottom: 10px;
+}
+.ph-prop {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	min-width: 0;
+	padding: 2px 0;
+}
+.ph-prop-wide {
+	grid-column: 1 / -1;
+}
+.ph-prop-label {
+	flex: none;
+	min-width: 86px;
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.ph-prop-value {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	min-width: 0;
+}
+
+.ph-date-ctl {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+.ph-date-rel {
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+.ph-date-rel.is-critical {
+	color: var(--text-error);
+}
+.ph-date-rel.is-warning {
+	color: var(--ph-yellow);
+}
+
+.ph-editable {
+	border-bottom: 1px dashed var(--background-modifier-border);
+}
+
+.ph-chip-x {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 2px;
+	color: var(--text-faint);
+	border-radius: var(--ph-radius-sm);
+	cursor: pointer;
+}
+.ph-chip-x:hover {
+	color: var(--text-error);
+	background: var(--background-modifier-hover);
+}
+.ph-chip-x svg {
+	width: 10px;
+	height: 10px;
+}
+
+.ph-chip-add {
+	color: var(--text-faint);
+	border: 1px dashed var(--background-modifier-border);
+	background: transparent;
+	cursor: pointer;
+}
+.ph-chip-add:hover {
+	color: var(--text-normal);
+	background: var(--background-modifier-hover);
+}
+.ph-chip-add svg {
+	width: 10px;
+	height: 10px;
+}
+
+.ph-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 4px;
+}
+
+.ph-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 8px 0;
+}
+.ph-stat {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 8px;
+	border-radius: var(--ph-radius-sm);
+	background: var(--background-secondary);
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+.ph-stat.is-critical {
+	color: var(--text-error);
+}
+.ph-stat-icon {
+	display: inline-flex;
+}
+.ph-stat-icon svg {
+	width: 12px;
+	height: 12px;
+}
+.ph-stat-value {
+	font-weight: var(--font-semibold);
+	color: var(--text-normal);
+	font-variant-numeric: tabular-nums;
+}
+
+.ph-progress-ctl {
+	align-items: center;
+}
+.ph-progress-ctl .ph-progress {
+	height: 8px;
+}
+
+.ph-inline-input {
+	padding: 1px 5px;
+	font-size: var(--font-ui-small);
+}
+
+/* iOS-style keyboard hints and buttons shared with the modals. */
+.ph-btn {
+	padding: 4px 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--ph-radius-sm);
+	background: var(--background-primary);
+	color: var(--text-normal);
+}
+.ph-btn:hover {
+	background: var(--background-modifier-hover);
+}
+.ph-btn.mod-cta {
+	background: var(--interactive-accent);
+	border-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+}
+.ph-btn.mod-cta:hover {
+	background: var(--interactive-accent-hover);
+}
+.ph-btn:disabled {
+	opacity: 0.6;
+	cursor: default;
+}

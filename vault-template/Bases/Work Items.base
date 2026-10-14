@@ -1,0 +1,226 @@
+filters:
+  and:
+    - 'kind == "work-item"'
+formulas:
+  overdue: 'if(due && due < today() && !["Done","Removed"].contains(status), true, false)'
+  age_days: '((now() - file.ctime) / 86400000).round()'
+  cycle_days: 'if(closed && started, ((closed - started) / 86400000).round(), null)'
+properties:
+  file.name:
+    displayName: Name
+  id:
+    displayName: ID
+  title:
+    displayName: Title
+  type:
+    displayName: Type
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  assignee:
+    displayName: Assignee
+  project:
+    displayName: Project
+  parent:
+    displayName: Parent
+  sprint:
+    displayName: Sprint
+  start:
+    displayName: Start
+  due:
+    displayName: Due
+  points:
+    displayName: Points
+  estimate:
+    displayName: Estimate
+  remaining:
+    displayName: Remaining
+  completed:
+    displayName: Completed
+  labels:
+    displayName: Labels
+  blocked_by:
+    displayName: Blocked by
+  started:
+    displayName: Started
+  closed:
+    displayName: Closed
+  created:
+    displayName: Created
+  progress:
+    displayName: Progress
+  items_total:
+    displayName: Items
+  items_done:
+    displayName: Done
+  points_total:
+    displayName: Points
+  points_done:
+    displayName: Pts done
+  rank:
+    displayName: Rank
+  area:
+    displayName: Area
+  formula.overdue:
+    displayName: Overdue
+  formula.age_days:
+    displayName: Age (days)
+  formula.cycle_days:
+    displayName: Cycle (days)
+views:
+  - type: ph-board
+    name: Board
+    filters:
+      and:
+        - 'status != "Removed"'
+    order:
+      - file.name
+      - id
+      - title
+      - type
+      - status
+      - priority
+      - assignee
+      - project
+      - sprint
+      - due
+      - points
+    columnsBy: status
+    swimlanesBy: none
+    showDone: "14d"
+    hideEmptyColumns: false
+    cardSize: comfortable
+    showWip: true
+    showSubtaskProgress: true
+  - type: ph-backlog
+    name: Backlog
+    filters:
+      and:
+        - 'status != "Removed"'
+    phGroupBy: sprint
+  - type: ph-timeline
+    name: Timeline
+    scale: week
+    phGroupBy: project
+  - type: calendar
+    name: Calendar
+    startDate: note.due
+    weekStartDay: monday
+  - type: table
+    name: All items
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+      - assignee
+      - project
+      - sprint
+      - due
+      - points
+    sort:
+      - property: priority
+        direction: ASC
+      - property: due
+        direction: ASC
+    summaries:
+      points: Sum
+  - type: table
+    name: Overdue
+    filters:
+      and:
+        - formula.overdue
+    order:
+      - file.name
+      - type
+      - status
+      - assignee
+      - due
+      - points
+    sort:
+      - property: due
+        direction: ASC
+    summaries:
+      points: Sum
+  - type: table
+    name: Bugs
+    filters:
+      and:
+        - 'type == "Bug"'
+    order:
+      - file.name
+      - status
+      - priority
+      - assignee
+      - sprint
+      - due
+      - points
+    sort:
+      - property: priority
+        direction: ASC
+      - property: due
+        direction: ASC
+  - type: table
+    name: Epics
+    filters:
+      and:
+        - 'type == "Epic"'
+    order:
+      - file.name
+      - status
+      - progress
+      - items_done
+      - items_total
+      - points_done
+      - points_total
+      - due
+      - assignee
+    sort:
+      - property: progress
+        direction: DESC
+      - property: priority
+        direction: ASC
+    summaries:
+      points_done: Sum
+      points_total: Sum
+  - type: table
+    name: Features
+    filters:
+      and:
+        - 'type == "Feature"'
+    order:
+      - file.name
+      - status
+      - progress
+      - items_done
+      - items_total
+      - points_done
+      - points_total
+      - due
+      - assignee
+    sort:
+      - property: progress
+        direction: DESC
+      - property: priority
+        direction: ASC
+    summaries:
+      points_done: Sum
+      points_total: Sum
+  - type: table
+    name: Recently closed
+    filters:
+      and:
+        - 'closed >= today() - "14d"'
+    order:
+      - file.name
+      - type
+      - status
+      - assignee
+      - closed
+      - points
+    sort:
+      - property: closed
+        direction: DESC
+    summaries:
+      points: Sum

@@ -1,0 +1,29 @@
+filters:
+  and:
+    - 'kind == "person"'
+properties:
+  file.name:
+    displayName: Name
+  email:
+    displayName: Email
+  role:
+    displayName: Role
+  open_items:
+    displayName: Open items
+  open_points:
+    displayName: Open points
+views:
+  - type: table
+    name: People
+    order:
+      - file.name
+      - email
+      - role
+      - open_items
+      - open_points
+    sort:
+      - property: file.name
+        direction: ASC
+    summaries:
+      open_items: Sum
+      open_points: Sum

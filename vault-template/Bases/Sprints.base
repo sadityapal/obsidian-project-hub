@@ -1,0 +1,42 @@
+filters:
+  and:
+    - 'kind == "sprint"'
+properties:
+  file.name:
+    displayName: Name
+  state:
+    displayName: State
+  start:
+    displayName: Start
+  end:
+    displayName: End
+  goal:
+    displayName: Goal
+  capacity:
+    displayName: Capacity
+  progress:
+    displayName: Progress
+  items_total:
+    displayName: Items
+  items_done:
+    displayName: Done
+  points_total:
+    displayName: Points
+  points_done:
+    displayName: Points done
+views:
+  - type: table
+    name: All sprints
+    order:
+      - file.name
+      - state
+      - start
+      - end
+      - goal
+      - capacity
+      - progress
+      - points_done
+      - points_total
+    sort:
+      - property: start
+        direction: DESC

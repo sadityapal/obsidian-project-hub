@@ -1,0 +1,35 @@
+/* Project Hub — small polish on top of the Minimal theme. */
+
+/* Home reads better edge-to-edge. */
+.ph-home {
+  --file-line-width: 100%;
+}
+
+/* Boards, timelines, backlogs, dashboards and charts need the full pane width. */
+.ph-block {
+  --file-line-width: 100%;
+}
+
+/* Embedded base views (project boards, timelines, sprints) sit flush in notes. */
+.internal-embed[src*=".base"] {
+  --file-line-width: 100%;
+}
+
+/* Folder icons in the file explorer — emoji render everywhere, no plugin needed. */
+.nav-folder-title[data-path="Attachments"] .nav-folder-title-content::before { content: "📎 "; }
+.nav-folder-title[data-path="Bases"] .nav-folder-title-content::before { content: "🗂️ "; }
+.nav-folder-title[data-path="Daily"] .nav-folder-title-content::before { content: "📅 "; }
+.nav-folder-title[data-path="Inbox"] .nav-folder-title-content::before { content: "📥 "; }
+.nav-folder-title[data-path="Meetings"] .nav-folder-title-content::before { content: "🗓️ "; }
+.nav-folder-title[data-path="People"] .nav-folder-title-content::before { content: "👥 "; }
+.nav-folder-title[data-path="Projects"] .nav-folder-title-content::before { content: "🗃️ "; }
+.nav-folder-title[data-path="Sprints"] .nav-folder-title-content::before { content: "🏃 "; }
+.nav-folder-title[data-path="Templates"] .nav-folder-title-content::before { content: "📋 "; }
+.nav-folder-title[data-path="Work Items"] .nav-folder-title-content::before { content: "✅ "; }
+
+/* Key notes get their own icon. */
+.nav-file-title[data-path="Home.md"] .nav-file-title-content::before { content: "🏠 "; }
+.nav-file-title[data-path="Guide.md"] .nav-file-title-content::before { content: "📖 "; }
+
+/* Work item kinds stand out in the explorer, so note types read at a glance. */
+.nav-file-title[data-path^="Work Items/PH-"] .nav-file-title-content::before { content: "• "; color: var(--interactive-accent); font-weight: 700; }

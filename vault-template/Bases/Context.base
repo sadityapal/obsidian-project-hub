@@ -1,0 +1,127 @@
+filters:
+  and:
+    - 'kind == "work-item"'
+formulas:
+  overdue: 'if(due && due < today() && !["Done","Removed"].contains(status), true, false)'
+properties:
+  file.name:
+    displayName: Name
+  type:
+    displayName: Type
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  assignee:
+    displayName: Assignee
+  project:
+    displayName: Project
+  parent:
+    displayName: Parent
+  sprint:
+    displayName: Sprint
+  start:
+    displayName: Start
+  due:
+    displayName: Due
+  points:
+    displayName: Points
+  progress:
+    displayName: Progress
+  labels:
+    displayName: Labels
+  blocked_by:
+    displayName: Blocked by
+  formula.overdue:
+    displayName: Overdue
+views:
+  - type: table
+    name: Children
+    filters:
+      and:
+        - 'parent == this'
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+      - assignee
+      - due
+      - points
+      - progress
+    sort:
+      - property: priority
+        direction: ASC
+      - property: due
+        direction: ASC
+  - type: ph-board
+    name: Project board
+    filters:
+      and:
+        - 'project == this'
+    columnsBy: status
+    swimlanesBy: none
+    showDone: all
+    hideEmptyColumns: false
+    cardSize: comfortable
+    showWip: true
+    showSubtaskProgress: true
+  - type: ph-timeline
+    name: Project timeline
+    filters:
+      and:
+        - 'project == this'
+    scale: week
+    phGroupBy: parent
+  - type: table
+    name: Project items
+    filters:
+      and:
+        - 'project == this'
+    groupBy:
+      property: note.sprint
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+      - assignee
+      - sprint
+      - due
+      - points
+    sort:
+      - property: priority
+        direction: ASC
+  - type: ph-board
+    name: Sprint board
+    filters:
+      and:
+        - 'sprint == this'
+    columnsBy: status
+    swimlanesBy: assignee
+    showDone: all
+    hideEmptyColumns: false
+    cardSize: comfortable
+    showWip: true
+    showSubtaskProgress: true
+  - type: table
+    name: Person items
+    filters:
+      and:
+        - 'assignee == this'
+        - 'status != "Done"'
+        - 'status != "Removed"'
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+      - sprint
+      - due
+      - points
+    sort:
+      - property: priority
+        direction: ASC
+      - property: due
+        direction: ASC

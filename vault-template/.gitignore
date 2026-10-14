@@ -1,0 +1,6 @@
+# Obsidian workspace — keep layout-only state out of the vault history.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Local trash (Obsidian deletes here before real deletion).
+.trash/
